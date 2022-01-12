@@ -1,0 +1,5 @@
+node_modules/
+commands/*mydata.json
+.eslintrc.json
+config.json
+.env

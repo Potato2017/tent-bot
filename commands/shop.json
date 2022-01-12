@@ -1,0 +1,28 @@
+{
+    "shop": [
+        {
+            "id": 0,
+            "text": "better luck - get a better chance at getting better items with /pickup!",
+            "start": 50,
+            "multiplier": 1.08
+        },
+        {
+            "id": 1,
+            "text": "better selling price - get more money when selling!",
+            "start": 100,
+            "multiplier": 1.1
+        },
+        {
+            "id": 2,
+            "text": "multiple chance - have a chance of getting multiple items from /pickup!",
+            "start": 150,
+            "multiplier": 1.15
+        },
+        {
+            "id": 3,
+            "text": "lower cooldown - /pickup faster! (lowest possible 1 second)",
+            "start": 50,
+            "multiplier": 1.05
+        }
+    ]
+}
