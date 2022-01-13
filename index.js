@@ -1,9 +1,19 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
+const winston = require('winston');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
-
+const logger = winston.createLogger({
+	'transports': [
+		new winston.transports.File({
+			filename: 'logs/logs.log'
+		})
+	],
+	format: winston.format.timestamp({
+		format: 'MMM-DD-YY HH:mm:ss'
+	})
+})
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -26,7 +36,7 @@ client.on('interactionCreate', async interaction => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		console.error(error);
+		logger.error(error);
 		return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
