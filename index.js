@@ -7,7 +7,8 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const logger = winston.createLogger({
 	'transports': [
 		new winston.transports.File({
-			filename: 'logs/logs.log'
+			filename: 'logs/logs.log',
+			options: { flags: 'w' }
 		})
 	],
 	format: winston.format.combine(winston.format.timestamp({
@@ -26,7 +27,9 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log('Ready!');
-	client.channels.fetch('925465598924840992').send('<@&928421243399577633> bot alive lol');
+	client.channels.fetch('925465598924840992')
+		.then(channel => channel.send('<@&928421243399577633> bot alive lol'))
+		.catch(error => logger.error(error))
 });
 
 client.on('interactionCreate', async interaction => {
