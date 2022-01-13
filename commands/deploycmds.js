@@ -1,0 +1,43 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { exec } = require("child_process");
+const path = require("path");
+const winston = require('winston');
+
+module.exports = {
+	data: new SlashCommandBuilder()
+		.setName('deploycmds')
+		.setDescription('deploy commands - for me lol'),
+	async execute(interaction) {
+		if (interaction.user.id !== '439888132435869706') {
+			await interaction.reply( {content: 'imagine trying to deploy commands but not having permissions', ephemeral: true});
+			return;
+		}
+		const logger = winston.createLogger({
+			'transports': [
+				new winston.transports.File({
+					filename: 'logs/logs.log'
+				})
+			],
+			format: winston.format.combine(winston.format.timestamp({
+				format: 'MMM-DD-YY HH:mm:ss'
+			}),
+			winston.format.printf(info => `${info.level}: ${[info.timestamp]}: ${info.message}`))
+		})
+		await interaction.reply('deploying commands...');
+		logger.info('deploying commands...');
+        const cmd = "node "+path.join(__dirname, '..', 'deploy-commands.js');
+        logger.info(cmd);
+        exec(cmd, async function (error, stdout, stderr) {
+            if (error) {
+                logger.error(error.message)
+                logger.info('stdout: ' + stdout);
+                logger.info('stderr: ' + stderr);
+                await interaction.followUp('something went wrong deploying commands');
+                return;
+            }
+        })
+        logger.info('commands deployed');
+        await interaction.followUp('commands deployed');
+		
+	},
+};
