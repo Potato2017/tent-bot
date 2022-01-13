@@ -25,7 +25,7 @@ module.exports = {
 		})
 		await interaction.reply('downloading updates...');
 		logger.info('downloading updates...');
-		exec("git pull", async function (error, stdout, stderr) {
+		exec("git pull origin main", {cwd: path.join(__dirname, '..')}, async function (error, stdout, stderr) {
 			if (error) {
 				logger.error(error.message);
 				await interaction.followUp('something went wrong downloading updates');
