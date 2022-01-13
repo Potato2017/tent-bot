@@ -18,9 +18,10 @@ module.exports = {
 					filename: 'logs/logs.log'
 				})
 			],
-			format: winston.format.timestamp({
+			format: winston.format.combine(winston.format.timestamp({
 				format: 'MMM-DD-YY HH:mm:ss'
-			})
+			}),
+			winston.format.printf(info => `${info.level}: ${[info.timestamp]}: ${info.message}`))
 		})
 		await interaction.reply('downloading updates...');
 		logger.info('downloading updates...');

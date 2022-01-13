@@ -10,9 +10,11 @@ const logger = winston.createLogger({
 			filename: 'logs/logs.log'
 		})
 	],
-	format: winston.format.timestamp({
+	format: winston.format.combine(winston.format.timestamp({
 		format: 'MMM-DD-YY HH:mm:ss'
-	})
+	}),
+	winston.format.printf(info => `${info.level}: ${[info.timestamp]}: ${info.message}`)
+	)
 })
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
