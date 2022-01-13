@@ -35,21 +35,23 @@ module.exports = {
 			logger.info('updates downloaded');
 			logger.info('stdout: ' + stdout);
 			logger.info('stderr: ' + stderr);
-			
-		});
-		await interaction.followUp('restarting bot...');
-		logger.info('restarting bot...');
-		logger.info(path.join(__dirname, '..', 'index.js'))
-        exec("node "+path.join(__dirname, '..', 'index.js'), async function (error, stdout, stderr) {
-			if (error) {
-				logger.error(error.message)
-				await interaction.followUp('something went wrong restarting the bot');
-				return;
-			}
+			await interaction.followUp('restarting bot...');
+			logger.info('restarting bot...');
+			const cmd = "node "+path.join(__dirname, '..', 'index.js');
+			logger.info(cmd);
+			exec(cmd, async function (error, stdout, stderr) {
+				if (error) {
+					logger.error(error.message)
+					logger.info('stdout: ' + stdout);
+					logger.info('stderr: ' + stderr);
+					await interaction.followUp('something went wrong restarting the bot');
+					return;
+				}
+			})
 			logger.info('bot restarted');
-			logger.info('stdout: ' + stdout);
-			logger.info('stderr: ' + stderr);
 			await interaction.followUp('bot restarted');
-		})
+			process.kill(0);
+		});
+		
 	},
 };
