@@ -27,6 +27,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log('Ready!');
+	client.user.setPresence({ activities: [ { name: 'with tents', type: 'PLAYING' } ] })
 	client.channels.fetch('927315968399642666')
 		.then(channel => channel.send('<@&928421243399577633> bot alive lol'))
 		.catch(error => logger.error(error))
