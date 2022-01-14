@@ -3,19 +3,19 @@
         {
             "id": 0,
             "text": "better luck - get a better chance at getting better items with /pickup!",
-            "start": 50,
+            "start": 75,
             "multiplier": 1.08
         },
         {
             "id": 1,
             "text": "better selling price - get more money when selling!",
-            "start": 100,
+            "start": 125,
             "multiplier": 1.1
         },
         {
             "id": 2,
             "text": "multiple chance - have a chance of getting multiple items from /pickup!",
-            "start": 150,
+            "start": 175,
             "multiplier": 1.15
         },
         {
