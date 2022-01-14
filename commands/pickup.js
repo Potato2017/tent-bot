@@ -36,14 +36,14 @@ module.exports = {
                 for (i = 0; i < Object.keys(items).length; i++) {
                     if (items[i].startsWith('***')) {
                         
-                        weight = Math.round(1+Math.pow(1.05,mydata.users[interaction.user.id].upgrades[0]))
+                        weight = Math.round(1+Math.pow(1.04,mydata.users[interaction.user.id].upgrades[0]))
                         for (var j = 0; j < weight; j++) {
                             balancedList.push(i)
                         }
 
                     } else if (items[i].startsWith('**')) {
 
-                        weight = Math.round(1+2*Math.pow(1.03,mydata.users[interaction.user.id].upgrades[0]))
+                        weight = Math.round(1+2*Math.pow(1.02,mydata.users[interaction.user.id].upgrades[0]))
                         for (j = 0; j < weight; j++) {
                             balancedList.push(i)
                         }
