@@ -27,18 +27,20 @@ module.exports = {
         logger.info('restarting bot...');
         const cmd = "node "+path.join(__dirname, '..', 'index.js');
         logger.info(cmd);
-        exec('start cmd.exe /K ' + cmd, async function (error, stdout, stderr) {
+        exec('start cmd.exe /c ' + cmd, async function (error, stdout, stderr) {
             if (error) {
                 logger.error(error.message)
                 logger.info('stdout: ' + stdout);
                 logger.info('stderr: ' + stderr);
                 await interaction.followUp('something went wrong restarting the bot');
                 return;
-            }
+            } else {
+				exec('exit');
+			}
         })
         logger.info('bot restarted');
         await interaction.followUp('bot restarted');
-        process.kill(0);
+        process.exit();
 		
 	},
 };
