@@ -3,3 +3,4 @@ commands/*mydata.json
 .eslintrc.json
 config.json
 logs/
+commands/items.json
