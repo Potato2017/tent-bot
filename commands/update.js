@@ -39,7 +39,7 @@ module.exports = {
 			logger.info('restarting bot...');
 			const cmd = "node "+path.join(__dirname, '..', 'index.js');
 			logger.info(cmd);
-			exec(cmd, async function (error, stdout, stderr) {
+			exec('start cmd.exe /K' + cmd, async function (error, stdout, stderr) {
 				if (error) {
 					logger.error(error.message)
 					logger.info('stdout: ' + stdout);
