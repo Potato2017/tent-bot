@@ -34,10 +34,12 @@ module.exports = {
                 logger.info('stderr: ' + stderr);
                 await interaction.followUp('something went wrong deploying commands');
                 return;
-            }
+            } else {
+				logger.info('commands deployed');
+        		await interaction.followUp('commands deployed');
+			}
         })
-        logger.info('commands deployed');
-        await interaction.followUp('commands deployed');
+        
 		
 	},
 };

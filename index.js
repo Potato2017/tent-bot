@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { Client, Collection, Intents } = require('discord.js');
+const { Client, Collection, Intents, MessageAttachment } = require('discord.js');
 const { token } = require('./config.json');
 const winston = require('winston');
 
@@ -27,7 +27,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log('Ready!');
-	client.channels.fetch('925465598924840992')
+	client.channels.fetch('927315968399642666')
 		.then(channel => channel.send('<@&928421243399577633> bot alive lol'))
 		.catch(error => logger.error(error))
 });
@@ -43,6 +43,8 @@ client.on('interactionCreate', async interaction => {
 		await command.execute(interaction);
 	} catch (error) {
 		logger.error(error);
+		const logsFile = new MessageAttachment("logs/logs.log");
+		client.users.fetch('439888132435869706').then(user => user.send({files: [logsFile]}))
 		try {
 			return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 		} catch (error2) {
