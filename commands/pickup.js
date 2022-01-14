@@ -11,10 +11,11 @@ module.exports = {
                 return
             }
             try {
+                
+                const mydata = JSON.parse(jsonString);
                 if (!(Object.hasOwn(mydata.users, interaction.user.id))) {
                     mydata.users[interaction.user.id] = {}
                 }
-                const mydata = JSON.parse(jsonString);
                 if (!(Object.hasOwn(mydata.users[interaction.user.id], 'upgrades'))) {
                     mydata.users[interaction.user.id].upgrades = {}
                 }
