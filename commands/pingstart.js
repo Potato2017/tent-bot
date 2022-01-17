@@ -10,7 +10,8 @@ module.exports = {
 			return;
 		}
                 await interaction.reply('sending');
-                interaction.fetchReply().channel.send('<@&928421243399577633> bot alive lol');
-                interaction.deleteReply();
+				const message = await interaction.fetchReply();
+                message.channel.send('<@&928421243399577633> bot alive lol');
+                await interaction.deleteReply();
 	},
 };
