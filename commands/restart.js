@@ -35,9 +35,12 @@ module.exports = {
                 await interaction.editReply('restarting bot...\nsomething went wrong restarting the bot');
                 return;
             } else {
-				logger.info('bot restarted');
-				process.exit();
+				exec('exit');
 			}
         })
+        logger.info('bot restarted');
+        await interaction.editReply('restarting bot...\nbot restarted');
+        process.exit();
+		
 	},
 };
