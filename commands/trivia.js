@@ -102,8 +102,8 @@ module.exports = {
                                 buttons.push(new MessageButton())
                                 buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j])
                             }
-                            const row2 = new MessageActionRow.addComponents(buttons)
-                            await i.update({embeds: [qEmbed], components: [row2]})
+                            const row2 = new MessageActionRow().addComponents(buttons)
+                            await interaction.editReply({embeds: [qEmbed], components: [row2]})
                             collector.stop('answered');
                         } else {
                             await i.reply(`whoops thats not right. the right answer was ${q.correct_answer}`);
@@ -122,8 +122,8 @@ module.exports = {
                                 buttons.push(new MessageButton())
                                 buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j])
                             }
-                            const row2 = new MessageActionRow.addComponents(buttons)
-                            await i.update({embeds: [qEmbed], components: [row2]})
+                            const row2 = new MessageActionRow().addComponents(buttons)
+                            await interaction.editReply({embeds: [qEmbed], components: [row2]})
                             collector.stop('answered');
                         }
                     });
@@ -143,8 +143,8 @@ module.exports = {
                                 buttons.push(new MessageButton())
                                 buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j])
                             }
-                            const row2 = new MessageActionRow.addComponents(buttons)
-                            await i.update({embeds: [qEmbed], components: [row2]})
+                            const row2 = new MessageActionRow().addComponents(buttons)
+                            await interaction.editReply({embeds: [qEmbed], components: [row2]})
                         }
                     })
                 }
