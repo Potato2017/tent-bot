@@ -49,24 +49,24 @@ module.exports = {
 				} else {
 					logger.info('commands deployed');
 					await interaction.followUp('commands deployed');
+					await interaction.followUp('restarting bot...');
+					logger.info('restarting bot...');
+					const startcmd = "node "+path.join(__dirname, '..', 'index.js');
+					logger.info(startcmd);
+					exec('start cmd.exe /c' + startcmd, async function (error, stdout, stderr) {
+						if (error) {
+							logger.error(error.message)
+							logger.info('stdout: ' + stdout);
+							logger.info('stderr: ' + stderr);
+							await interaction.followUp('something went wrong restarting the bot');
+							return;
+						}
+					})
+					logger.info('bot restarted');
+					await interaction.followUp('bot restarted');
+					process.kill(0);
 				}
 			})
-			await interaction.followUp('restarting bot...');
-			logger.info('restarting bot...');
-			const startcmd = "node "+path.join(__dirname, '..', 'index.js');
-			logger.info(startcmd);
-			exec('start cmd.exe /c' + startcmd, async function (error, stdout, stderr) {
-				if (error) {
-					logger.error(error.message)
-					logger.info('stdout: ' + stdout);
-					logger.info('stderr: ' + stderr);
-					await interaction.followUp('something went wrong restarting the bot');
-					return;
-				}
-			})
-			logger.info('bot restarted');
-			await interaction.followUp('bot restarted');
-			process.kill(0);
 		});
 		
 	},
