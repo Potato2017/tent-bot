@@ -11,6 +11,9 @@ module.exports = {
         const category = interaction.options.getInteger('category');
         const difficultyint = interaction.options.getInteger('difficulty');
         var difficulty = '';
+        if (!([1,2,3].includes(difficultyint))) {
+            difficultyint = Math.floor(Math.random()*3)+1
+        }
         switch(difficultyint) {
             case 1:
                 difficulty = 'easy';
