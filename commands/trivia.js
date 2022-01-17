@@ -22,7 +22,7 @@ module.exports = {
                 difficulty = 'hard';
                 break;
         }
-        if (category < 9 || category > 32) {
+        if (category !== null && (category < 9 || category > 32)) {
             interaction.reply({content: 'category should be from 9 to 32', ephemeral: true});
             return;
         }
