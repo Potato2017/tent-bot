@@ -37,9 +37,9 @@ module.exports = {
 			logger.info('stderr: ' + stderr);
 			await interaction.followUp('deploying commands...');
 			logger.info('deploying commands...');
-			const cmd = "node "+path.join(__dirname, '..', 'deploy-commands.js');
-			logger.info(cmd);
-			exec(cmd, async function (error, stdout, stderr) {
+			const deploycmd = "node "+path.join(__dirname, '..', 'deploy-commands.js');
+			logger.info(deploycmd);
+			exec(deploycmd, async function (error, stdout, stderr) {
 				if (error) {
 					logger.error(error.message)
 					logger.info('stdout: ' + stdout);
@@ -53,9 +53,9 @@ module.exports = {
 			})
 			await interaction.followUp('restarting bot...');
 			logger.info('restarting bot...');
-			const cmd = "node "+path.join(__dirname, '..', 'index.js');
-			logger.info(cmd);
-			exec('start cmd.exe /c' + cmd, async function (error, stdout, stderr) {
+			const startcmd = "node "+path.join(__dirname, '..', 'index.js');
+			logger.info(startcmd);
+			exec('start cmd.exe /c' + startcmd, async function (error, stdout, stderr) {
 				if (error) {
 					logger.error(error.message)
 					logger.info('stdout: ' + stdout);
