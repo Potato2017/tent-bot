@@ -28,14 +28,14 @@ module.exports = {
 		exec("git pull origin main", {cwd: path.join(__dirname, '..')}, async function (error, stdout, stderr) {
 			if (error) {
 				logger.error(error.message);
-				await interaction.followUp('something went wrong downloading updates');
+				await interaction.followUp('downloading updates...\nsomething went wrong downloading updates');
 				return;
 			}
-			await interaction.followUp('updates downloaded');
+			await interaction.editReply('downloading updates...\nupdates downloaded');
 			logger.info('updates downloaded');
 			logger.info('stdout: ' + stdout);
 			logger.info('stderr: ' + stderr);
-			await interaction.editReply('updates downloaded\ndeploying commands...');
+			await interaction.editReply('downloading updates...\nupdates downloaded\ndeploying commands...');
 			logger.info('deploying commands...');
 			const deploycmd = "node "+path.join(__dirname, '..', 'deploy-commands.js');
 			logger.info(deploycmd);
@@ -44,12 +44,12 @@ module.exports = {
 					logger.error(error.message)
 					logger.info('stdout: ' + stdout);
 					logger.info('stderr: ' + stderr);
-					await interaction.editReply('updates downloaded\ndeploying commands...\nsomething went wrong deploying commands');
+					await interaction.editReply('downloading updates...\nupdates downloaded\ndeploying commands...\nsomething went wrong deploying commands');
 					return;
 				} else {
 					logger.info('commands deployed');
-					await interaction.editReply('updates downloaded\ndeploying commands...\ncommands deployed');
-					await interaction.editReply('updates downloaded\ndeploying commands...\ncommands deployed\nrestarting bot...');
+					await interaction.editReply('downloading updates...\nupdates downloaded\ndeploying commands...\ncommands deployed');
+					await interaction.editReply('downloading updates...\nupdates downloaded\ndeploying commands...\ncommands deployed\nrestarting bot...');
 					logger.info('restarting bot...');
 					const startcmd = "node "+path.join(__dirname, '..', 'index.js');
 					logger.info(startcmd);
@@ -58,12 +58,12 @@ module.exports = {
 							logger.error(error.message)
 							logger.info('stdout: ' + stdout);
 							logger.info('stderr: ' + stderr);
-							await interaction.editReply('updates downloaded\ndeploying commands...\ncommands deployed\nrestarting bot...\nsomething went wrong restarting the bot');
+							await interaction.editReply('downloading updates...\nupdates downloaded\ndeploying commands...\ncommands deployed\nrestarting bot...\nsomething went wrong restarting the bot');
 							return;
 						}
 					})
 					logger.info('bot restarted');
-					await interaction.editReply('updates downloaded\ndeploying commands...\ncommands deployed\nrestarting bot...\nbot restarted');
+					await interaction.editReply('downloading updates...\nupdates downloaded\ndeploying commands...\ncommands deployed\nrestarting bot...\nbot restarted');
 					process.kill(0);
 				}
 			})
