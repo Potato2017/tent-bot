@@ -35,6 +35,22 @@ module.exports = {
 			logger.info('updates downloaded');
 			logger.info('stdout: ' + stdout);
 			logger.info('stderr: ' + stderr);
+			await interaction.followUp('deploying commands...');
+			logger.info('deploying commands...');
+			const cmd = "node "+path.join(__dirname, '..', 'deploy-commands.js');
+			logger.info(cmd);
+			exec(cmd, async function (error, stdout, stderr) {
+				if (error) {
+					logger.error(error.message)
+					logger.info('stdout: ' + stdout);
+					logger.info('stderr: ' + stderr);
+					await interaction.followUp('something went wrong deploying commands');
+					return;
+				} else {
+					logger.info('commands deployed');
+					await interaction.followUp('commands deployed');
+				}
+			})
 			await interaction.followUp('restarting bot...');
 			logger.info('restarting bot...');
 			const cmd = "node "+path.join(__dirname, '..', 'index.js');
