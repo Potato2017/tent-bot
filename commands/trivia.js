@@ -89,15 +89,62 @@ module.exports = {
                         }
                         if (i.customId === `b${correctPos}`) {
                             await i.reply('congrats, thats correct!');
+                            const styles = [];
+                            for (var j = 0; j < 4; j++) {
+                                if (j === correctPos) {
+                                    styles.push('SUCCESS')
+                                } else {
+                                    styles.push('SECONDARY')
+                                }
+                            }
+                            var buttons = []
+                            for (j = 0; j < 4; j++) {
+                                buttons.push(new MessageButton())
+                                buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j])
+                            }
+                            const row2 = new MessageActionRow.addComponents(buttons)
+                            await i.update({embeds: [qEmbed], components: [row2]})
                             collector.stop('answered');
                         } else {
                             await i.reply(`whoops thats not right. the right answer was ${q.correct_answer}`);
+                            const styles = [];
+                            for (var j = 0; j < 4; j++) {
+                                if (j === correctPos) {
+                                    styles.push('SUCCESS')
+                                } else if (`b${j}` === i.customId) {
+                                    styles.push('DANGER')
+                                } else {
+                                    styles.push('SECONDARY')
+                                }
+                            }
+                            var buttons = []
+                            for (j = 0; j < 4; j++) {
+                                buttons.push(new MessageButton())
+                                buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j])
+                            }
+                            const row2 = new MessageActionRow.addComponents(buttons)
+                            await i.update({embeds: [qEmbed], components: [row2]})
                             collector.stop('answered');
                         }
                     });
                     collector.on('end', async (_, reason) => {
                         if (reason !== 'answered') {
                             await interaction.followUp(`you ran out of time lol, the answer was ${q.correct_answer}`)
+                            const styles = [];
+                            for (var j = 0; j < 4; j++) {
+                                if (j === correctPos) {
+                                    styles.push('SUCCESS')
+                                } else {
+                                    styles.push('SECONDARY')
+                                }
+                            }
+                            var buttons = []
+                            for (j = 0; j < 4; j++) {
+                                buttons.push(new MessageButton())
+                                buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j])
+                            }
+                            const row2 = new MessageActionRow.addComponents(buttons)
+                            await i.update({embeds: [qEmbed], components: [row2]})
                         }
                     })
                 }
