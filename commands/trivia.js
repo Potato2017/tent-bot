@@ -9,7 +9,7 @@ module.exports = {
 		.setDescription('trivia q'),
 	async execute(interaction) {
         const category = interaction.options.getInteger('category');
-        const difficultyint = interaction.options.getInteger('difficulty');
+        var difficultyint = interaction.options.getInteger('difficulty');
         var difficulty = '';
         if (!([1,2,3].includes(difficultyint))) {
             difficultyint = Math.floor(Math.random()*3)+1
