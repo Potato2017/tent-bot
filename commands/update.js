@@ -35,7 +35,7 @@ module.exports = {
 			logger.info('updates downloaded');
 			logger.info('stdout: ' + stdout);
 			logger.info('stderr: ' + stderr);
-			await interaction.followUp('deploying commands...');
+			await interaction.editReply('updates downloaded\ndeploying commands...');
 			logger.info('deploying commands...');
 			const deploycmd = "node "+path.join(__dirname, '..', 'deploy-commands.js');
 			logger.info(deploycmd);
@@ -44,12 +44,12 @@ module.exports = {
 					logger.error(error.message)
 					logger.info('stdout: ' + stdout);
 					logger.info('stderr: ' + stderr);
-					await interaction.followUp('something went wrong deploying commands');
+					await interaction.editReply('updates downloaded\ndeploying commands...\nsomething went wrong deploying commands');
 					return;
 				} else {
 					logger.info('commands deployed');
-					await interaction.followUp('commands deployed');
-					await interaction.followUp('restarting bot...');
+					await interaction.editReply('updates downloaded\ndeploying commands...\ncommands deployed');
+					await interaction.editReply('updates downloaded\ndeploying commands...\ncommands deployed\nrestarting bot...');
 					logger.info('restarting bot...');
 					const startcmd = "node "+path.join(__dirname, '..', 'index.js');
 					logger.info(startcmd);
@@ -58,12 +58,12 @@ module.exports = {
 							logger.error(error.message)
 							logger.info('stdout: ' + stdout);
 							logger.info('stderr: ' + stderr);
-							await interaction.followUp('something went wrong restarting the bot');
+							await interaction.editReply('updates downloaded\ndeploying commands...\ncommands deployed\nrestarting bot...\nsomething went wrong restarting the bot');
 							return;
 						}
 					})
 					logger.info('bot restarted');
-					await interaction.followUp('bot restarted');
+					await interaction.editReply('updates downloaded\ndeploying commands...\ncommands deployed\nrestarting bot...\nbot restarted');
 					process.kill(0);
 				}
 			})
