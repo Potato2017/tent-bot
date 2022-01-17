@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-
+const { decode } = require('html-entities');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('trivia')
@@ -59,7 +59,7 @@ module.exports = {
                     }
                     const qEmbed = new MessageEmbed()
                         .setColor('00ff00')
-                        .setTitle(q.question)
+                        .setTitle(decode(q.question))
                         .addField(`category: ${q.category} difficulty: ${q.difficulty}`, `you have 15 seconds!`);
                     const row = new MessageActionRow()
                         .addComponents([
