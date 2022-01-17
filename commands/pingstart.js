@@ -9,6 +9,8 @@ module.exports = {
 			await interaction.reply( {content: 'imagine trying to restart but not having permissions', ephemeral: true});
 			return;
 		}
-                await interaction.reply('<@&928421243399577633> bot alive lol')
+                await interaction.reply('sending');
+                interaction.fetchReply().channel.send('<@&928421243399577633> bot alive lol');
+                interaction.deleteReply();
 	},
 };
