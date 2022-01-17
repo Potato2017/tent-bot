@@ -36,8 +36,6 @@ module.exports = {
                 return;
             } else {
 				logger.info('bot restarted');
-				await interaction.editReply('restarting bot...\nbot restarted');
-				await new Promise(r => setTimeout(r, 1000));
 				process.exit();
 			}
         })
