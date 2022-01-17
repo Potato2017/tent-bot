@@ -65,6 +65,9 @@ module.exports = {
                 }
                 const num = Math.floor(Math.random()*balancedList.length)
                 if (Object.hasOwn(mydata.users, interaction.user.id)) {
+                    if (!(Object.hasOwn(mydata.users[interaction.user.id], 'items'))) {
+                        mydata.users[interaction.user.id].items = {};
+                    }
                     if (Object.hasOwn(mydata.users[interaction.user.id].items, balancedList[num])) {
                         mydata.users[interaction.user.id].items[balancedList[num]] += 1;
                     } else {
