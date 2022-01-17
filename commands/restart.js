@@ -32,11 +32,11 @@ module.exports = {
                 logger.error(error.message)
                 logger.info('stdout: ' + stdout);
                 logger.info('stderr: ' + stderr);
-                await interaction.followUp('restarting bot...\nsomething went wrong restarting the bot');
+                await interaction.editReply('restarting bot...\nsomething went wrong restarting the bot');
                 return;
             } else {
 				logger.info('bot restarted');
-				await interaction.followUp('restarting bot...\nbot restarted');
+				await interaction.editReply('restarting bot...\nbot restarted');
 				process.exit();
 			}
         })
