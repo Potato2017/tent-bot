@@ -6,24 +6,18 @@ module.exports = {
 		.setDescription('see the shop'),
 	async execute(interaction) {
         const { shop } = require('./shop.json');
+        const userinit = require("./utility/userinit.js");
         fs.readFile('./commands/newmydata.json', 'utf8', async (err, jsonString) => {
             if (err) {
                 console.log("File read failed:", err);
                 return
             }
             try {
-                const mydata = JSON.parse(jsonString);
-                if (!(Object.hasOwn(mydata.users, interaction.user.id))) {
+                const mydataa = JSON.parse(jsonString);
+                const mydata = userinit.userinit(mydataa, interaction.user.id)
+                if (mydata.users[interaction.user.id].items === {}) {
                     await interaction.reply('you don\'t have an inventory! try using /pickup');
                     return
-                }
-                if (!(Object.hasOwn(mydata.users[interaction.user.id], 'upgrades'))) {
-                    mydata.users[interaction.user.id].upgrades = {}
-                }
-                for (var i = 0; i < shop.length; i++) {
-                    if (!(Object.hasOwn(mydata.users[interaction.user.id].upgrades, shop[i].id))) {
-                        mydata.users[interaction.user.id].upgrades[shop[i].id] = 0;
-                    }
                 }
                 const upgradescount = mydata.users[interaction.user.id].upgrades;
                 var output = "**SHOP**\nuse **/buy** to buy something from the shop! things get more expensive the more you buy!\n";

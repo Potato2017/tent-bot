@@ -4,14 +4,15 @@ module.exports = {
 	data: new SlashCommandBuilder().setName('sell').setDescription('sell stuff from your inv').addIntegerOption(option => option.setName('id').setDescription('you can check id with /puinv').setRequired(true)).addIntegerOption(option => option.setName('amount').setDescription('how many').setRequired(true)),
 	async execute(interaction) {
         const { items } = require("./items.json");
-        const { shop } = require("./shop.json");
+        const userinit = require("./utility/userinit.js");
 		fs.readFile('./commands/newmydata.json', 'utf8', async (err, jsonString) => {
             if (err) {
                 console.log("File read failed:", err);
                 return
             }
             try {
-                const mydata = JSON.parse(jsonString);
+                const mydataa = JSON.parse(jsonString);
+                const mydata = userinit.userinit(mydataa, interaction.user.id)
                 const id = interaction.options.getInteger('id');
                 const amount = interaction.options.getInteger('amount');
                 if (!((id < Object.keys(items).length) && (id >= 0))) {
@@ -25,14 +26,6 @@ module.exports = {
                 if (amount > mydata.users[interaction.user.id].items[id.toString()]) {
                     await interaction.reply('you don\'t have that many');
                     return
-                }
-                if (!(Object.hasOwn(mydata.users[interaction.user.id], 'upgrades'))) {
-                    mydata.users[interaction.user.id].upgrades = {}
-                }
-                for (var i = 0; i < shop.length; i++) {
-                    if (!(Object.hasOwn(mydata.users[interaction.user.id].upgrades, shop[i].id))) {
-                        mydata.users[interaction.user.id].upgrades[shop[i].id] = 0;
-                    }
                 }
                 mydata.users[interaction.user.id].items[id.toString()] -= amount;
                 var gained = null;

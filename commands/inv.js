@@ -5,6 +5,7 @@ module.exports = {
 	data: new SlashCommandBuilder().setName('inv').setDescription('see what you\'ve picked up').addUserOption(option => option.setName('target').setDescription('who').setRequired(false)).addIntegerOption(option => option.setName('page').setDescription('which').setRequired(false)),
 	async execute(interaction) {
         const { items } = require("./items.json");
+        const userinit = require("./utility/userinit.js");
         const row = new MessageActionRow().addComponents(new MessageButton().setStyle('PRIMARY').setCustomId('hardleft').setLabel('|<'), 
             new MessageButton().setStyle('PRIMARY').setCustomId('left').setLabel('<'), 
             new MessageButton().setStyle('PRIMARY').setCustomId('right').setLabel('>'), 
@@ -15,7 +16,7 @@ module.exports = {
                 return
             }
             try {
-                const mydata = JSON.parse(jsonString);
+                const mydataa = JSON.parse(jsonString);
                 const targetUser = interaction.options.getUser('target');
                 var page = interaction.options.getInteger('page');
                 if ((page-1)*20 > Object.keys(items).length) {
@@ -29,10 +30,8 @@ module.exports = {
                     page = 1
                 }
                 if (targetUser === null) {
-                    if (Object.hasOwn(mydata.users, interaction.user.id)) {
-                        if (!(Object.hasOwn(mydata.users[interaction.user.id], 'money'))) {
-                            mydata.users[interaction.user.id].money = 0;
-                        }
+                    const mydata = userinit.userinit(mydataa, interaction.user.id);
+                    if (mydata.users[interaction.user.id].items !== {}) {
                         var totals = {};
                         var output = '';
                         var totalnum = 0;
@@ -56,10 +55,8 @@ module.exports = {
                     }
                 } else {
                     const targetid = targetUser.id;
-                    if (Object.hasOwn(mydata.users, targetid)) {
-                        if (!(Object.hasOwn(mydata.users[targetid], 'money'))) {
-                            mydata.users[targetid].money = 0;
-                        }
+                    const mydata = userinit.userinit(mydataa, targetid);
+                    if (mydata.users[targetid].items !== {}) {
                         var totals = {};
                         var output = '';
                         var totalnum = 0;

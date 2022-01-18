@@ -4,7 +4,7 @@ module.exports = {
 	data: new SlashCommandBuilder().setName('pickup').setDescription('pick up something from the ground 👀'),
 	async execute(interaction) {
         const { items } = require("./items.json");
-        const { shop } = require("./shop.json")
+        const userinit = require("./utility/userinit.js");
 		fs.readFile('./commands/newmydata.json', 'utf8', async (err, jsonString) => {
             if (err) {
                 console.log("File read failed:", err);
@@ -12,21 +12,8 @@ module.exports = {
             }
             try {
                 
-                const mydata = JSON.parse(jsonString);
-                if (!(Object.hasOwn(mydata.users, interaction.user.id))) {
-                    mydata.users[interaction.user.id] = {}
-                }
-                if (!(Object.hasOwn(mydata.users[interaction.user.id], 'upgrades'))) {
-                    mydata.users[interaction.user.id].upgrades = {}
-                }
-                for (var i = 0; i < shop.length; i++) {
-                    if (!(Object.hasOwn(mydata.users[interaction.user.id].upgrades, shop[i].id))) {
-                        mydata.users[interaction.user.id].upgrades[shop[i].id] = 0;
-                    }
-                }
-                if (!(Object.hasOwn(mydata.users[interaction.user.id], 'pickupcd'))) {
-                    mydata.users[interaction.user.id].pickupcd = 0;
-                }
+                const mydataa = JSON.parse(jsonString);
+                const mydata = userinit.userinit(mydataa, interaction.user.id);
                 if ((Date.now() - mydata.users[interaction.user.id].pickupcd) < (1000 + 2000*Math.pow(0.9, mydata.users[interaction.user.id].upgrades[3]))) {
                     interaction.reply(`that's still on cooldown! wait ${((1000 + 2000*Math.pow(0.9, mydata.users[interaction.user.id].upgrades[3]))-((Date.now() - mydata.users[interaction.user.id].pickupcd)))/1000} more seconds`);
                     return
@@ -65,9 +52,6 @@ module.exports = {
                 }
                 const num = Math.floor(Math.random()*balancedList.length)
                 if (Object.hasOwn(mydata.users, interaction.user.id)) {
-                    if (!(Object.hasOwn(mydata.users[interaction.user.id], 'items'))) {
-                        mydata.users[interaction.user.id].items = {};
-                    }
                     if (Object.hasOwn(mydata.users[interaction.user.id].items, balancedList[num])) {
                         mydata.users[interaction.user.id].items[balancedList[num]] += 1;
                     } else {

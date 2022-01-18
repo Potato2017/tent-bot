@@ -88,23 +88,43 @@ module.exports = {
                             await i.reply({ content: 'this isn\'t for you lol', ephemeral: true});
                         }
                         if (i.customId === `b${correctPos}`) {
-                            await i.reply('congrats, thats correct!');
-                            const styles = [];
-                            for (var j = 0; j < 4; j++) {
-                                if (j === correctPos) {
-                                    styles.push('SUCCESS')
-                                } else {
-                                    styles.push('SECONDARY')
+                            const fs = require('fs');
+                            fs.readFile('./commands/newmydata.json', 'utf8', async (err, jsonString) => {
+                                if (err) {
+                                    console.log("File read failed:", err);
+                                    return
                                 }
-                            }
-                            var buttons = []
-                            for (j = 0; j < 4; j++) {
-                                buttons.push(new MessageButton())
-                                buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j])
-                            }
-                            const row2 = new MessageActionRow().addComponents(buttons)
-                            await interaction.editReply({embeds: [qEmbed], components: [row2]})
-                            collector.stop('answered');
+                                try {
+                                    const mydataa = JSON.parse(jsonString);
+                                    const userinit = require('./utility/userinit');
+                                    const mydata = userinit.userinit(mydataa, interaction.user.id);
+                                    await i.reply(`congrats, thats correct! you earned ${Math.pow(2, difficultyint-1)*5} tent coins`);
+                                    mydata.users[interaction.user.id].money += Math.pow(2, difficultyint-1)*5
+                                    fs.writeFile('./commands/newmydata.json', JSON.stringify(mydata, null, 2), (err) => {
+                                        if (err) console.log('Error writing file:', err)
+                                    })
+                                    const styles = [];
+                                    for (var j = 0; j < 4; j++) {
+                                        if (j === correctPos) {
+                                            styles.push('SUCCESS')
+                                        } else {
+                                            styles.push('SECONDARY')
+                                        }
+                                    }
+                                    var buttons = []
+                                    for (j = 0; j < 4; j++) {
+                                        buttons.push(new MessageButton())
+                                        buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j])
+                                    }
+                                    const row2 = new MessageActionRow().addComponents(buttons)
+                                    await interaction.editReply({embeds: [qEmbed], components: [row2]})
+                                    collector.stop('answered');
+                                } catch(err) {
+                                    console.error(err);
+                                    return
+                                }
+                            })
+                            
                         } else {
                             await i.reply(`whoops thats not right. the right answer was ${q.correct_answer}`);
                             const styles = [];
