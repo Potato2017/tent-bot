@@ -12,7 +12,7 @@ module.exports = {
         var difficultyint = interaction.options.getInteger('difficulty');
         var difficulty = '';
         if (!([1,2,3].includes(difficultyint))) {
-            difficultyint = Math.floor(Math.random()*3)+1
+            difficultyint = Math.floor(Math.random()*3)+1;
         }
         switch(difficultyint) {
             case 1:
@@ -24,6 +24,8 @@ module.exports = {
             case 3:
                 difficulty = 'hard';
                 break;
+            default:
+                break;
         }
         if (category !== null && (category < 9 || category > 32)) {
             interaction.reply({content: 'category should be from 9 to 32', ephemeral: true});
@@ -34,27 +36,29 @@ module.exports = {
         if (category) {
             xhr.open("GET",`https://opentdb.com/api.php?amount=1&category=${category}&difficulty=${difficulty}&type=multiple`);
         } else {
-            xhr.open("GET",`https://opentdb.com/api.php?amount=1&difficulty=${difficulty}&type=multiple`)
+            xhr.open("GET",`https://opentdb.com/api.php?amount=1&difficulty=${difficulty}&type=multiple`);
         }
         xhr.send();
         xhr.onload = async function() {
             if (xhr.status === 200) {
                 var a = JSON.parse(xhr.responseText);
-                if (a.response_code) { // response code 0 = success
+                // Response code 0 = success
+                if (a.response_code) { 
                     await interaction.reply(`something went wrong.`);
                 } else {
-                    const q = a.results[0]
+                    const [q] = a.results;
                     const correctPos = Math.floor(Math.random()*4);
                     const answers = [];
                     for (var i = 0; i < 4; i++) {
-                        if (i == correctPos) {
-                            answers.push(q.correct_answer)
+                        if (i === correctPos) {
+                            answers.push(q.correct_answer);
                         } else {
-                            let choice = q.incorrect_answers[Math.floor(Math.random()*3)]
+                            let choice = q.incorrect_answers[Math.floor(Math.random()*3)];
+                            // eslint-disable-next-line max-depth
                             while (answers.includes(choice)) {
-                                choice = q.incorrect_answers[Math.floor(Math.random()*3)]
+                                choice = q.incorrect_answers[Math.floor(Math.random()*3)];
                             }
-                            answers.push(choice)
+                            answers.push(choice);
                         }
                     }
                     const qEmbed = new MessageEmbed()
@@ -79,8 +83,8 @@ module.exports = {
                                 .setCustomId('b3')
                                 .setLabel(answers[3])
                                 .setStyle('PRIMARY')
-                        ])
-                    await interaction.reply({embeds: [qEmbed], components: [row]})
+                        ]);
+                    await interaction.reply({embeds: [qEmbed], components: [row]});
 
                     const collector = interaction.channel.createMessageComponentCollector({ componentType: 'BUTTON', time: 15000 });
                     collector.on('collect', async i => {
@@ -92,85 +96,85 @@ module.exports = {
                             fs.readFile('./commands/newmydata.json', 'utf8', async (err, jsonString) => {
                                 if (err) {
                                     console.log("File read failed:", err);
-                                    return
+                                    return;
                                 }
                                 try {
                                     const mydataa = JSON.parse(jsonString);
                                     const userinit = require('./utility/userinit');
                                     const mydata = userinit.userinit(mydataa, interaction.user.id);
                                     await i.reply(`congrats, thats correct! you earned ${Math.pow(2, difficultyint-1)*5} tent coins`);
-                                    mydata.users[interaction.user.id].money += Math.pow(2, difficultyint-1)*5
+                                    mydata.users[interaction.user.id].money += Math.pow(2, difficultyint-1)*5;
                                     fs.writeFile('./commands/newmydata.json', JSON.stringify(mydata, null, 2), (err) => {
-                                        if (err) console.log('Error writing file:', err)
-                                    })
+                                        if (err) console.log('Error writing file:', err);
+                                    });
                                     const styles = [];
                                     for (var j = 0; j < 4; j++) {
                                         if (j === correctPos) {
-                                            styles.push('SUCCESS')
+                                            styles.push('SUCCESS');
                                         } else {
-                                            styles.push('SECONDARY')
+                                            styles.push('SECONDARY');
                                         }
                                     }
-                                    var buttons = []
+                                    var buttons = [];
                                     for (j = 0; j < 4; j++) {
-                                        buttons.push(new MessageButton())
-                                        buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j])
+                                        buttons.push(new MessageButton());
+                                        buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j]);
                                     }
-                                    const row2 = new MessageActionRow().addComponents(buttons)
-                                    await interaction.editReply({embeds: [qEmbed], components: [row2]})
+                                    const row2 = new MessageActionRow().addComponents(buttons);
+                                    await interaction.editReply({embeds: [qEmbed], components: [row2]});
                                     collector.stop('answered');
                                 } catch(err) {
                                     console.error(err);
-                                    return
+                                    return;
                                 }
-                            })
+                            });
                             
                         } else {
                             await i.reply(`whoops thats not right. the right answer was ${q.correct_answer}`);
                             const styles = [];
                             for (var j = 0; j < 4; j++) {
                                 if (j === correctPos) {
-                                    styles.push('SUCCESS')
+                                    styles.push('SUCCESS');
                                 } else if (`b${j}` === i.customId) {
-                                    styles.push('DANGER')
+                                    styles.push('DANGER');
                                 } else {
-                                    styles.push('SECONDARY')
+                                    styles.push('SECONDARY');
                                 }
                             }
-                            var buttons = []
+                            var buttons = [];
                             for (j = 0; j < 4; j++) {
-                                buttons.push(new MessageButton())
-                                buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j])
+                                buttons.push(new MessageButton());
+                                buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j]);
                             }
-                            const row2 = new MessageActionRow().addComponents(buttons)
-                            await interaction.editReply({embeds: [qEmbed], components: [row2]})
+                            const row2 = new MessageActionRow().addComponents(buttons);
+                            await interaction.editReply({embeds: [qEmbed], components: [row2]});
                             collector.stop('answered');
                         }
                     });
                     collector.on('end', async (_, reason) => {
                         if (reason !== 'answered') {
-                            await interaction.followUp(`you ran out of time lol, the answer was ${q.correct_answer}`)
+                            await interaction.followUp(`you ran out of time lol, the answer was ${q.correct_answer}`);
                             const styles = [];
                             for (var j = 0; j < 4; j++) {
                                 if (j === correctPos) {
-                                    styles.push('SUCCESS')
+                                    styles.push('SUCCESS');
                                 } else {
-                                    styles.push('SECONDARY')
+                                    styles.push('SECONDARY');
                                 }
                             }
-                            var buttons = []
+                            var buttons = [];
                             for (j = 0; j < 4; j++) {
-                                buttons.push(new MessageButton())
-                                buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j])
+                                buttons.push(new MessageButton());
+                                buttons[j].setCustomId(`d${j}`).setLabel(answers[j]).setStyle(styles[j]);
                             }
-                            const row2 = new MessageActionRow().addComponents(buttons)
-                            await interaction.editReply({embeds: [qEmbed], components: [row2]})
+                            const row2 = new MessageActionRow().addComponents(buttons);
+                            await interaction.editReply({embeds: [qEmbed], components: [row2]});
                         }
-                    })
+                    });
                 }
             } else {
                 await interaction.reply(`whoops an error occured, status code ${xhr.status}`);
             }
-        }
+        };
 	},
 };

@@ -11,7 +11,7 @@ module.exports = {
             new MessageButton().setStyle('PRIMARY').setCustomId('m1').setEmoji('<:baicaijiaozi:925508535398305814>').setLabel(''), 
             new MessageButton().setStyle('PRIMARY').setCustomId('m2').setEmoji('<:ianbike:926329527280496670>').setLabel(''), 
             new MessageButton().setStyle('PRIMARY').setCustomId('m3').setEmoji('<:jacqheart:926260527813001327>').setLabel(''), 
-            new MessageButton().setStyle('PRIMARY').setCustomId('m4').setEmoji('<:vishnuwireless:901905052531298364>').setLabel(''))
+            new MessageButton().setStyle('PRIMARY').setCustomId('m4').setEmoji('<:vishnuwireless:901905052531298364>').setLabel(''));
         const amount = interaction.options.getInteger("amount");
         if (amount === null) {
             await interaction.reply({content: '⛺', components: [row] });
@@ -25,7 +25,7 @@ module.exports = {
 
         collector.on('collect', async i => {
             if (i.user.id !== interaction.user.id) {
-                await i.reply({ content: 'this isn\'t for you lol', ephemeral: true})
+                await i.reply({ content: 'this isn\'t for you lol', ephemeral: true});
             }
             if (i.customId === 'm1') {
                 await i.reply('mmm cabbage dumpling');

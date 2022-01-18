@@ -10,38 +10,38 @@ module.exports = {
         fs.readFile('./commands/newmydata.json', 'utf8', async (err, jsonString) => {
             if (err) {
                 console.log("File read failed:", err);
-                return
+                return;
             }
             try {
                 const mydataa = JSON.parse(jsonString);
-                const mydata = userinit.userinit(mydataa, interaction.user.id)
+                const mydata = userinit.userinit(mydataa, interaction.user.id);
                 if (mydata.users[interaction.user.id].items === {}) {
                     await interaction.reply('you don\'t have an inventory! try using /pickup');
-                    return
+                    return;
                 }
                 const upgradescount = mydata.users[interaction.user.id].upgrades;
                 var output = "**SHOP**\nuse **/buy** to buy something from the shop! things get more expensive the more you buy!\n";
-                for (i = 0; i < shop.length; i++) {
+                for (var i = 0; i < shop.length; i++) {
                     output += shop[i].text;
                     output += " - BOUGHT: ";
                     output += upgradescount[shop[i].id].toString();
                     output += ", COST FOR NEXT: ";
                     output += (Math.floor(shop[i].start*Math.pow(shop[i].multiplier, upgradescount[shop[i].id]))).toString();
-                    output += " - ID: "
-                    output += shop[i].id.toString()
-                    output += "\n"
+                    output += " - ID: ";
+                    output += shop[i].id.toString();
+                    output += "\n";
                 }
 
                 fs.writeFile('./commands/newmydata.json', JSON.stringify(mydata, null, 2), (err) => {
-                    if (err) console.log('Error writing file:', err)
-                })
+                    if (err) console.log('Error writing file:', err);
+                });
                 
                 await interaction.reply(output); 
             } catch(err) {
                 console.error(err);
-                return
+                return;
             }
-        })
+        });
 		
 	},
 };

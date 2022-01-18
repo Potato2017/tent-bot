@@ -14,8 +14,9 @@ module.exports = {
         if (targetUser === null) url = interaction.user.displayAvatarURL();
         else url = targetUser.displayAvatarURL();
         const imageResponse = await axios({url: url, responseType: 'arraybuffer'});
+        // eslint-disable-next-line no-undef
         const buffer = Buffer.from(imageResponse.data, 'binary');
-        let src = new sharp(buffer);
+        var src = new sharp(buffer);
         try {
             await src.resize({width: 120, height: 120});
             await src.composite(
@@ -27,7 +28,7 @@ module.exports = {
                         blend: "dest-atop"
                     }
                 ]
-            )
+            );
             await src.toFile("tentavatar.png");
             const avatar = new MessageAttachment("./tentavatar.png");
             await interaction.reply({content: "here you go ⛺", files: [avatar]});

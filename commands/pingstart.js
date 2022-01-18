@@ -6,7 +6,7 @@ module.exports = {
 		.setDescription('ping start'),
 	async execute(interaction) {
                 if (interaction.user.id !== '439888132435869706') {
-			await interaction.reply( {content: 'imagine trying to ping start but not having permissions', ephemeral: true});
+			await interaction.reply({content: 'imagine trying to ping start but not having permissions', ephemeral: true});
 			return;
 		}
                 await interaction.reply('sending');

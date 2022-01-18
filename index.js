@@ -16,7 +16,7 @@ const logger = winston.createLogger({
 	}),
 	winston.format.printf(info => `${info.level}: ${[info.timestamp]}: ${info.message}`)
 	)
-})
+});
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -27,10 +27,10 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log('Ready!');
-	client.user.setPresence({ activities: [ { name: 'with tents', type: 'PLAYING' } ] })
+	client.user.setPresence({ activities: [{ name: 'with tents', type: 'PLAYING' }] });
 	client.channels.fetch('927315968399642666')
 		.then(channel => channel.send('<@&928421243399577633> bot alive lol'))
-		.catch(error => logger.error(error))
+		.catch(error => logger.error(error));
 });
 
 client.on('interactionCreate', async interaction => {
@@ -45,11 +45,11 @@ client.on('interactionCreate', async interaction => {
 	} catch (error) {
 		logger.error(error);
 		const logsFile = new MessageAttachment("logs/logs.log");
-		client.users.fetch('439888132435869706').then(user => user.send({files: [logsFile]}))
+		client.users.fetch('439888132435869706').then(user => user.send({files: [logsFile]}));
 		try {
 			return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 		} catch (error2) {
-			return interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true })
+			return interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
 		}
 	}
 });

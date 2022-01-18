@@ -12,21 +12,21 @@ module.exports = {
         const high = interaction.options.getInteger('high');
         var amount = interaction.options.getInteger("amount");
         if (amount === null) {
-            amount = 1
+            amount = 1;
         }
         if (amount <= 0) {
             await interaction.reply('positive integer amount please');
-            return
+            return;
         }
         if (high < low) {
             await interaction.reply('high should be higher than or equal to low');
-            return
+            return;
         }
-        var output = ''
+        var output = '';
         for (var i = 0; i < amount; i++) {
             output += Math.floor(Math.random()*(high+1-low)+low).toString();
-            output += " "
+            output += " ";
         }
-        await interaction.reply(output)
+        await interaction.reply(output);
 	},
 };

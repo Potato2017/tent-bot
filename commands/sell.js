@@ -8,11 +8,11 @@ module.exports = {
 		fs.readFile('./commands/newmydata.json', 'utf8', async (err, jsonString) => {
             if (err) {
                 console.log("File read failed:", err);
-                return
+                return;
             }
             try {
                 const mydataa = JSON.parse(jsonString);
-                const mydata = userinit.userinit(mydataa, interaction.user.id)
+                const mydata = userinit.userinit(mydataa, interaction.user.id);
                 const id = interaction.options.getInteger('id');
                 const amount = interaction.options.getInteger('amount');
                 if (!((id < Object.keys(items).length) && (id >= 0))) {
@@ -21,11 +21,11 @@ module.exports = {
                 }
                 if (amount <= 0) {
                     await interaction.reply('that amount is too low');
-                    return
+                    return;
                 }
                 if (amount > mydata.users[interaction.user.id].items[id.toString()]) {
                     await interaction.reply('you don\'t have that many');
-                    return
+                    return;
                 }
                 mydata.users[interaction.user.id].items[id.toString()] -= amount;
                 var gained = null;
@@ -40,18 +40,18 @@ module.exports = {
                 }
                 gained = Math.round(gained*Math.log(mydata.users[interaction.user.id].upgrades[1]+2.5)/Math.log(2.5));
                 if (Object.hasOwn(mydata.users[interaction.user.id], 'money')) {
-                    mydata.users[interaction.user.id].money += gained
+                    mydata.users[interaction.user.id].money += gained;
                 } else {
-                    mydata.users[interaction.user.id].money = gained
+                    mydata.users[interaction.user.id].money = gained;
                 }
                 fs.writeFile('./commands/newmydata.json', JSON.stringify(mydata, null, 2), (err) => {
-                    if (err) console.log('Error writing file:', err)
-                })
+                    if (err) console.log('Error writing file:', err);
+                });
                 await interaction.reply(`you sold ${amount} of your ${items[id]}s and made ${gained} tent coins`);
             } catch(err) {
                 console.error(err);
-                return
+                return;
             }
-        })
+        });
 	},
 };
