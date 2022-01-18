@@ -1,7 +1,7 @@
 var userinit = function(data, userid) {
     const { shop } = require('../shop.json');
     if (!(Object.hasOwn(data.users, userid))) {
-        data.users.userid = {};
+        data.users[userid] = {};
     }
     if (!(Object.hasOwn(data.users[userid], 'items'))) {
         data.users[userid].items = {};
