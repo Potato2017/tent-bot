@@ -58,7 +58,7 @@ module.exports = {
                             while (answers.includes(choice)) {
                                 choice = q.incorrect_answers[Math.floor(Math.random()*3)];
                             }
-                            answers.push(choice);
+                            answers.push(decode(choice));
                         }
                     }
                     const qEmbed = new MessageEmbed()
