@@ -17,7 +17,6 @@ module.exports = {
                 const timePassed = Date.now() - mydata.users[interaction.user.id].campingLastChecked;
                 var totalPerSecond = 0;
                 for (var i = 0; i < campingshop.length; i++) {
-                    console.log(timePassed);
                     mydata.users[interaction.user.id].tents += campingshop[i].perSecond*mydata.users[interaction.user.id].campingUpgrades[i]*timePassed/1000;
                     totalPerSecond += campingshop[i].perSecond*mydata.users[interaction.user.id].campingUpgrades[i];
                 }
