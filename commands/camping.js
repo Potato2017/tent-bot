@@ -2,10 +2,36 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require('fs');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-	data: new SlashCommandBuilder().setName('camping').setDescription('work in progress "idle game"'),
+	data: new SlashCommandBuilder()
+        .setName('camping')
+        .setDescription('work in progress "idle game"')
+        .addSubcommand(subcommand => subcommand
+                .setName('info')
+                .setDescription('get your camping info! you have to do this to collect your tents too'))
+        .addSubcommand(subcommand => subcommand
+                .setName('shop')
+                .setDescription('see the camping shop'))
+        .addSubcommand(subcommand => subcommand
+            .setName('buy')
+            .setDescription('buy something for your camping excursion! do /camping shop to see the available items')
+            .addIntegerOption(option => option
+                .setName('id')
+                .setDescription('you can check id with /camping shop')
+                .setRequired(true))),
+
 	async execute(interaction) {
+        if (interaction.options.getSubcommand() === 'buy') {
+            const file = require('./camping/campingbuy.js');
+            await file.execute(interaction);
+            return;
+        }
+        if (interaction.options.getSubcommand() === 'shop') {
+            const file = require('./camping/campingshop.js');
+            await file.execute(interaction);
+            return;
+        }
         const userinit = require("./utility/userinit.js");
-        const { campingshop } = require('./campingshop.json');
+        const { campingshop } = require('./camping/campingshop.json');
 		fs.readFile('./commands/newmydata.json', 'utf8', async (err, jsonString) => {
             if (err) {
                 console.log("File read failed:", err);

@@ -1,6 +1,6 @@
 var userinit = function(data, userid) {
     const { shop } = require('../shop.json');
-    const { campingshop } = require('../campingshop.json');
+    const { campingshop } = require('../camping/campingshop.json');
     if (!(Object.hasOwn(data.users, userid))) {
         data.users[userid] = {};
     }
