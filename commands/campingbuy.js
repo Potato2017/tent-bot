@@ -13,7 +13,7 @@ module.exports = {
             try {
                 const mydataa = JSON.parse(jsonString);
                 const mydata = userinit.userinit(mydataa, interaction.user.id);
-                const multiplier = 1.1;
+                const multiplier = 1.15;
                 const id = interaction.options.getInteger('id');
                 if (!((id < campingshop.length) && (id >= 0))) {
                     await interaction.reply('that\'s an invalid id');
