@@ -4,37 +4,43 @@
             "id": 0,
             "text": "lantern",
             "start": 10,
-            "perSecond": 1
+            "perSecond": 0.2
         },
         {
             "id": 1,
             "text": "cot",
             "start": 100,
-            "perSecond": 3
+            "perSecond": 0.6
         },
         {
             "id": 2,
             "text": "campfire",
             "start": 1250,
-            "perSecond": 20
+            "perSecond": 4
         },
         {
             "id": 3,
             "text": "gas stove",
             "start": 10000,
-            "perSecond": 50
+            "perSecond": 10
         },
         {
             "id": 4,
             "text": "induction stove",
             "start": 60000,
-            "perSecond": 100
+            "perSecond": 20
         },
         {
             "id": 5,
             "text": "marshmallows",
             "start": 200000,
-            "perSecond": 300
+            "perSecond": 60
+        },
+        {
+            "id": 6,
+            "text": "hiking boots",
+            "start": 2000000,
+            "perSecond": 120
         }
     ]
 }
