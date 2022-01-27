@@ -10,13 +10,9 @@ module.exports = {
                 return;
             }
             try {
-                if (interaction.user.id !== '439888132435869706') {
-                    interaction.reply({content: 'factions will be starting soon!', ephemeral: true});
-                    return;
-                }
                 // eslint-disable-next-line no-unused-vars
                 const mydata = JSON.parse(jsonString);
-                const COOLDOWN = 600000;
+                const COOLDOWN = 60000;
                 if (!Object.values(mydata.factions.players).includes(interaction.user.id)) {
                     await interaction.reply({content: 'you arent registered for this season of factions 😔'});
                     return;
@@ -113,10 +109,6 @@ module.exports = {
                                 targetColumn = Math.floor(Math.random()*transpose.length);
                                 targetRow = firstEnemyTerritory[targetColumn];
                             }
-                            console.log(firstEnemyTerritory);
-                            console.log(firstEnemyTerritory.length);
-                            console.log(targetRow);
-                            console.log(targetColumn);
                             mydata.factions.map[targetRow][targetColumn] = color;
                             won += 1;
                         }
@@ -186,10 +178,6 @@ module.exports = {
                                 targetRow = Math.floor(Math.random()*facmap.length);
                                 targetColumn = firstEnemyTerritory[targetRow];
                             }
-                            console.log(firstEnemyTerritory);
-                            console.log(firstEnemyTerritory.length);
-                            console.log(targetRow);
-                            console.log(targetColumn);
                             mydata.factions.map[targetRow][targetColumn] = color;
                             won += 1;
                         }
@@ -259,10 +247,6 @@ module.exports = {
                                 targetColumn = Math.floor(Math.random()*transpose.length);
                                 targetRow = firstEnemyTerritory[targetColumn];
                             }
-                            console.log(firstEnemyTerritory);
-                            console.log(firstEnemyTerritory.length);
-                            console.log(targetRow);
-                            console.log(targetColumn);
                             mydata.factions.map[targetRow][targetColumn] = color;
                             won += 1;
                         }
@@ -332,10 +316,6 @@ module.exports = {
                                 targetRow = Math.floor(Math.random()*facmap.length);
                                 targetColumn = firstEnemyTerritory[targetRow];
                             }
-                            console.log(firstEnemyTerritory);
-                            console.log(firstEnemyTerritory.length);
-                            console.log(targetRow);
-                            console.log(targetColumn);
                             mydata.factions.map[targetRow][targetColumn] = color;
                             won += 1;
                         }
