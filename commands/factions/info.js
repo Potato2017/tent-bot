@@ -16,22 +16,34 @@ module.exports = {
                 const {map} = mydata.factions;
                 const canvas = createCanvas(500, 500);
                 const ctx = canvas.getContext('2d');
+                var squareCount = {
+                    r: 0,
+                    g: 0,
+                    b: 0,
+                    y: 0,
+                    e: 0
+                };
                 for (var i = 0; i < 50; i++) {
                     for (var j = 0; j < 50; j++) {
                         switch(map[i][j]) {
                             case 'r':
                                 ctx.fillStyle = 'red';
+                                squareCount.r += 1;
                                 break;
                             case 'g':
                                 ctx.fillStyle = 'green';
+                                squareCount.g += 1;
                                 break;
                             case 'b':
                                 ctx.fillStyle = 'blue';
+                                squareCount.b += 1;
                                 break;
                             case 'y':
                                 ctx.fillStyle = 'yellow';
+                                squareCount.y += 1;
                                 break;
                             default:
+                                squareCount.e += 1;
                                 ctx.fillStyle = 'white';
                         }
                         ctx.fillRect(j*10, i*10, j*10+9, i*10+9);
@@ -67,6 +79,13 @@ module.exports = {
                     output += `yellow: ${player.tag}`;
                 } else {
                     output += 'yellow: None';
+                }
+                output += '\n';
+                for (i = 0; i < Object.keys(squareCount).length; i++) {
+                    output += Object.keys(squareCount)[i];
+                    output += ': ';
+                    output += squareCount[Object.keys(squareCount)[i]];
+                    output += '\n';
                 }
                 await interaction.reply({content: output, files: [mapImg]});
                 fs.unlinkSync("./commands/factions/map.png");
