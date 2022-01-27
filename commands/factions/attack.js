@@ -12,7 +12,7 @@ module.exports = {
             try {
                 // eslint-disable-next-line no-unused-vars
                 const mydata = JSON.parse(jsonString);
-                const COOLDOWN = 60000;
+                const COOLDOWN = 0;
                 if (!Object.values(mydata.factions.players).includes(interaction.user.id)) {
                     await interaction.reply({content: 'you arent registered for this season of factions 😔'});
                     return;
@@ -324,21 +324,21 @@ module.exports = {
                     default:
                         interaction.reply({content: 'please use a number from 1-4!', ephemeral: true});
                 }
-                for (i = 0; i < Object.keys(mydata.factions.players).length; i++) {
-                    const checkingColor = Object.keys(mydata.factions.players)[i];
-                    eliminated = true;
-                    for (j = 0; j < facmap.length; j++) {
-                        for (var k = 0; k < facmap[j].length; k++) {
-                            if (facmap[j][k] === checkingColor) {
-                                eliminated = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (eliminated) {
-                        interaction.followUp(`${checkingColor} HAS BEEN ELIMINATED!`);
-                    }
-                }
+                // for (i = 0; i < Object.keys(mydata.factions.players).length; i++) {
+                //     const checkingColor = Object.keys(mydata.factions.players)[i];
+                //     eliminated = true;
+                //     for (j = 0; j < facmap.length; j++) {
+                //         for (var k = 0; k < facmap[j].length; k++) {
+                //             if (facmap[j][k] === checkingColor) {
+                //                 eliminated = false;
+                //                 break;
+                //             }
+                //         }
+                //     }
+                //     if (eliminated) {
+                //         interaction.followUp(`${checkingColor} HAS BEEN ELIMINATED!`);
+                //     }
+                // }
                 mydata.factions.cds[color] = Date.now();
                 fs.writeFile('./commands/newmydata.json', JSON.stringify(mydata, null, 2), (err) => {
                     if (err) console.log('Error writing file:', err);
