@@ -12,9 +12,9 @@ module.exports = {
             try {
                 // eslint-disable-next-line no-unused-vars
                 const mydata = JSON.parse(jsonString);
-                const COOLDOWN = 0;
+                const COOLDOWN = 60000;
                 if (!Object.values(mydata.factions.players).includes(interaction.user.id)) {
-                    await interaction.reply({content: 'you arent registered for this season of factions 😔'});
+                    await interaction.reply({content: 'you arent registered for this season of factions 😔', ephemeral: true});
                     return;
                 }
                 const direction = interaction.options.getInteger('direction');
@@ -23,6 +23,10 @@ module.exports = {
                 var color = '';
                 var eliminated = true;
                 for (var i = 0; i < Object.keys(mydata.factions.players).length; i++) {
+                    if (mydata.factions.players[Object.keys(mydata.factions.players)[i]] === '') {
+                        await interaction.reply('you need to wait for everyone to register');
+                        return;
+                    }
                     if (mydata.factions.players[Object.keys(mydata.factions.players)[i]] === interaction.user.id) {
                         color = Object.keys(mydata.factions.players)[i];
                         break;
