@@ -43,12 +43,12 @@ module.exports = {
                             totalnum += mydata.users[interaction.user.id].items[Object.keys(mydata.users[interaction.user.id].items)[i]];
                         }
                         for (i = (page-1)*20; i < Math.min(Object.keys(totals).length, page*20); i++) {
-                            output += `${items[i]} - ${totals[i]} - ID ${i}\n`;
+                            output += `${items[i]} - ${totals[i]} - ID \`${i}\`\n`;
                         }
                         var {money} = mydata.users[interaction.user.id];
-                        output += `TOTAL - ${totalnum}\n`;
-                        output += `MONEY - ${money} tent coins\n`;
-                        output += `page ${page} of ${Math.ceil(Object.keys(items).length/20)}`;
+                        output += `TOTAL - \`${totalnum}\`\n`;
+                        output += `MONEY - \`${money}\` tent coins\n`;
+                        output += `page \`${page}\` of \`${Math.ceil(Object.keys(items).length/20)}\``;
                         await interaction.reply({ content: output, components: [row]});
                     } else {
                         await interaction.reply('nothing lol');
@@ -68,12 +68,12 @@ module.exports = {
                             totalnum += mydata.users[targetid].items[Object.keys(mydata.users[targetid].items)[i]];
                         }
                         for (i = (page-1)*20; i < Math.min(Object.keys(totals).length, page*20); i++) {
-                            output += `${items[i]} - ${totals[i]} - ID ${i}\n`;
+                            output += `${items[i]} - ${totals[i]} - ID \`${i}\`\n`;
                         }
                         const { money } = mydata.users[targetid];
-                        output += `TOTAL - ${totalnum}\n`;
-                        output += `MONEY - ${money} tent coins\n`;
-                        output += `page ${page} of ${Math.ceil(Object.keys(items).length/20)}`;
+                        output += `TOTAL - \`${totalnum}\`\n`;
+                        output += `MONEY - \`${money}\` tent coins\n`;
+                        output += `page \`${page}\` of \`${Math.ceil(Object.keys(items).length/20)}\``;
                         await interaction.reply({ content: output, components: [row]});
                     } else {
                         await interaction.reply('nothing lol');
@@ -99,11 +99,11 @@ module.exports = {
                         }
                         output = '';
                         for (var il = (page-1)*20; il < Math.min(Object.keys(totals).length, page*20); il++) {
-                            output += `${items[il]} - ${totals[il]} - ID ${il}\n`;
+                            output += `${items[il]} - ${totals[il]} - ID \`${il}\`\n`;
                         }
-                        output += `TOTAL - ${totalnum}\n`;
-                        output += `MONEY - ${money} tent coins\n`;
-                        output += `page ${page} of ${Math.ceil(Object.keys(items).length/20)}`;
+                        output += `TOTAL - \`${totalnum}\`\n`;
+                        output += `MONEY - \`${money}\` tent coins\n`;
+                        output += `page \`${page}\` of \`${Math.ceil(Object.keys(items).length/20)}\``;
                         await i.update({content: output});
                     }
                 });

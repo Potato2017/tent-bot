@@ -23,13 +23,13 @@ module.exports = {
                 var output = "**SHOP**\nuse **/buy** to buy something from the shop! things get more expensive the more you buy!\n";
                 for (var i = 0; i < shop.length; i++) {
                     output += shop[i].text;
-                    output += " - BOUGHT: ";
+                    output += " - BOUGHT: `";
                     output += upgradescount[shop[i].id].toString();
-                    output += ", COST FOR NEXT: ";
+                    output += "`, COST FOR NEXT: `";
                     output += (Math.floor(shop[i].start*Math.pow(shop[i].multiplier, upgradescount[shop[i].id]))).toString();
-                    output += " - ID: ";
+                    output += "` - ID: `";
                     output += shop[i].id.toString();
-                    output += "\n";
+                    output += "`\n";
                 }
 
                 fs.writeFile('./commands/newmydata.json', JSON.stringify(mydata, null, 2), (err) => {

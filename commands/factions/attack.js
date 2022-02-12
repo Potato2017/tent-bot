@@ -45,7 +45,7 @@ module.exports = {
                     return;
                 }
                 if (Date.now()-mydata.factions.cds[color] < COOLDOWN) {
-                    interaction.reply(`you're still on cooldown! wait ${Math.floor((COOLDOWN-(Date.now()-mydata.factions.cds[color]))/1000)} more seconds`);
+                    interaction.reply(`you're still on cooldown! wait \`${Math.floor((COOLDOWN-(Date.now()-mydata.factions.cds[color]))/1000)}\` more seconds`);
                 }
                 const attack = Math.floor(Math.random()*40)+30;
                 switch(direction) {
@@ -116,7 +116,7 @@ module.exports = {
                             mydata.factions.map[targetRow][targetColumn] = color;
                             won += 1;
                         }
-                        await interaction.reply(`you attacked and gained ${won} squares!`);
+                        await interaction.reply(`you attacked and gained \`${won}\` squares!`);
                         break;
                     case 2:
                         firstEnemyTerritory = [];
@@ -185,7 +185,7 @@ module.exports = {
                             mydata.factions.map[targetRow][targetColumn] = color;
                             won += 1;
                         }
-                        await interaction.reply(`you attacked and gained ${won} squares!`);
+                        await interaction.reply(`you attacked and gained \`${won}\` squares!`);
                         break;
                     case 3:
                         firstEnemyTerritory = [];
@@ -254,7 +254,7 @@ module.exports = {
                             mydata.factions.map[targetRow][targetColumn] = color;
                             won += 1;
                         }
-                        await interaction.reply(`you attacked and gained ${won} squares!`);
+                        await interaction.reply(`you attacked and gained \`${won}\` squares!`);
                         break;
                     case 4:
                         firstEnemyTerritory = [];
@@ -323,7 +323,7 @@ module.exports = {
                             mydata.factions.map[targetRow][targetColumn] = color;
                             won += 1;
                         }
-                        await interaction.reply(`you attacked and gained ${won} squares!`);
+                        await interaction.reply(`you attacked and gained \`${won}\` squares!`);
                         break;
                     default:
                         interaction.reply({content: 'please use a number from 1-4!', ephemeral: true});

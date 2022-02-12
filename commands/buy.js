@@ -21,7 +21,7 @@ module.exports = {
                 const upgradescount = mydata.users[interaction.user.id].upgrades;
                 const price = Math.floor(shop[id].start*Math.pow(shop[id].multiplier, upgradescount[id]));
                 if (price > mydata.users[interaction.user.id].money) {
-                    await interaction.reply(`you don't have enough for that, you need ${price} lol`);
+                    await interaction.reply(`you don't have enough for that, you need \`${price}\` lol`);
                     return;
                 }
                 mydata.users[interaction.user.id].money -= price;
@@ -30,7 +30,7 @@ module.exports = {
                 fs.writeFile('./commands/newmydata.json', JSON.stringify(mydata, null, 2), (err) => {
                     if (err) console.log('Error writing file:', err);
                 });
-                await interaction.reply(`you bought id ${id} for ${price}!`);
+                await interaction.reply(`you bought id \`${id}\` for \`${price}\`!`);
             } catch(err) {
                 console.error(err);
                 return;

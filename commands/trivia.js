@@ -102,7 +102,7 @@ module.exports = {
                                     const mydataa = JSON.parse(jsonString);
                                     const userinit = require('./utility/userinit');
                                     const mydata = userinit.userinit(mydataa, interaction.user.id);
-                                    await i.reply(`congrats, thats correct! you earned ${Math.pow(2, difficultyint-1)*5} tent coins`);
+                                    await i.reply(`congrats, thats correct! you earned \`${Math.pow(2, difficultyint-1)*5}\` tent coins`);
                                     mydata.users[interaction.user.id].money += Math.pow(2, difficultyint-1)*5;
                                     fs.writeFile('./commands/newmydata.json', JSON.stringify(mydata, null, 2), (err) => {
                                         if (err) console.log('Error writing file:', err);

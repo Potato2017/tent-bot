@@ -32,9 +32,9 @@ module.exports = {
                 var entries = Object.entries(totals).sort((a,b) => b[1]-a[1]);
                 for (i = (page-1)*20; i < Math.min(entries.length, page*20); i++) {
                     const usr = await interaction.client.users.fetch(entries[i][0]);
-                    output += `${usr.tag} - ${entries[i][1]}\n`;
+                    output += `${usr.tag} - \`${entries[i][1]}\`\n`;
                 }
-                output += `page ${page} of ${Math.ceil(Object.keys(mydata.users).length/20)}`;
+                output += `page \`${page}\` of \`${Math.ceil(Object.keys(mydata.users).length/20)}\``;
                 await interaction.reply(output);
             
             } catch(err) {

@@ -47,7 +47,7 @@ module.exports = {
                 fs.writeFile('./commands/newmydata.json', JSON.stringify(mydata, null, 2), (err) => {
                     if (err) console.log('Error writing file:', err);
                 });
-                await interaction.reply(`you sold ${amount} of your ${items[id]}s and made ${gained} tent coins`);
+                await interaction.reply(`you sold \`${amount}\` of your ${items[id]}s and made \`${gained}\` tent coins`);
             } catch(err) {
                 console.error(err);
                 return;

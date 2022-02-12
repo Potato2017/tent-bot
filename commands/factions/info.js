@@ -83,9 +83,9 @@ module.exports = {
                 output += '\n';
                 for (i = 0; i < Object.keys(squareCount).length; i++) {
                     output += Object.keys(squareCount)[i];
-                    output += ': ';
+                    output += ': `';
                     output += squareCount[Object.keys(squareCount)[i]];
-                    output += '\n';
+                    output += '`\n';
                 }
                 await interaction.reply({content: output, files: [mapImg]});
                 fs.unlinkSync("./commands/factions/map.png");

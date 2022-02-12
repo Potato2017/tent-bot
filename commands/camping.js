@@ -50,10 +50,10 @@ module.exports = {
                 const emb = new MessageEmbed()
                     .setTitle('camping !!!');
                 for (i = 0; i < campingshop.length; i++) {
-                    emb.addField(campingshop[i].text, `you have ${mydata.users[interaction.user.id].campingUpgrades[i].toString()}`, true);
+                    emb.addField(campingshop[i].text, `you have \`${mydata.users[interaction.user.id].campingUpgrades[i].toString()}\``, true);
                 }
-                emb.addField('total tents', Math.round(mydata.users[interaction.user.id].tents).toString());
-                emb.addField('tents per second', Math.round(totalPerSecond).toString());
+                emb.addField('total tents', `\`${Math.round(mydata.users[interaction.user.id].tents)}\``);
+                emb.addField('tents per second', `\`${Math.round(totalPerSecond)}\``);
                 await interaction.reply({embeds: [emb]});
                 fs.writeFile('./commands/newmydata.json', JSON.stringify(mydata, null, 2), (err) => {
                     if (err) console.log('Error writing file:', err);
