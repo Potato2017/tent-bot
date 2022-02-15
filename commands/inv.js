@@ -101,6 +101,9 @@ module.exports = {
                         for (var il = (page-1)*20; il < Math.min(Object.keys(totals).length, page*20); il++) {
                             output += `${items[il]} - ${totals[il]} - ID \`${il}\`\n`;
                         }
+                        const targetid = targetUser.id;
+                        const mydata = userinit.userinit(mydataa, targetid);
+                        const { money } = mydata.users[targetid];
                         output += `TOTAL - \`${totalnum}\`\n`;
                         output += `MONEY - \`${money}\` tent coins\n`;
                         output += `page \`${page}\` of \`${Math.ceil(Object.keys(items).length/20)}\``;
