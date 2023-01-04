@@ -101,7 +101,9 @@ module.exports = {
                         for (var il = (page-1)*20; il < Math.min(Object.keys(totals).length, page*20); il++) {
                             output += `${items[il]} - ${totals[il]} - ID \`${il}\`\n`;
                         }
-                        const targetid = targetUser.id;
+                        var targetid = 0;
+                        if (targetUser === null) targetid = interaction.user.id;
+                        else targetid = targetUser.id;
                         const mydata = userinit.userinit(mydataa, targetid);
                         const { money } = mydata.users[targetid];
                         output += `TOTAL - \`${totalnum}\`\n`;
